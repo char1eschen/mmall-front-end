@@ -1,14 +1,14 @@
-'use strict';
 require('./index.css');
 var _mm                 = require('util/mm.js');
 var templatePagination  = require('./index.string');
 
 var Pagination = function(){
     var _this = this;
+    // 初始化数据
     this.defaultOption = {
         container       : null,
         pageNum         : 1,
-        pageRange       : 3,//左右浮动范围
+        pageRange       : 3,
         onSelectPage    : null
     };
     // 事件的处理
@@ -73,5 +73,7 @@ Pagination.prototype.getPaginationHtml = function(){
     });
     return html;
 };
-//导出模块
+
 module.exports = Pagination;
+
+

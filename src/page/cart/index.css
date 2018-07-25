@@ -1,120 +1,139 @@
-.cart-table{
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #ebebeb;
-    margin-bottom: 10px;
+.cart-wrap{
+    margin-top: 20px;
 }
-/*header*/
+/* header */
 .cart-header{
-    background: #eee;
-}
-.cart-header .cart-cell{
     height: 40px;
+    width: 100%;
+    background: #eee;
+    border: 1px solid #ebebeb;
+}
+.cart-table{
+    padding-left: 20px;
+}
+.cart-header th{
+    height: 100%;
     line-height: 40px;
 }
-.cart-table .cell-check{
-    width:7%;
-    text-align: left;
-    padding-left: 20px;
-}
-.cart-table .cell-img{
-    width:10%;
+.cart-header th:nth-child(1){
+    width: 130px;
     text-align: left;
 }
-.cart-table .cell-img .p-img{
-    margin: 10px 0;
-    width: 80px;
-    height:80px;
-    border: 1px solid #ddd;
-}
-.cart-table .cell-info{
-    width:35%;
+.cart-header th:nth-child(2){
+    width: 440px;
     text-align: left;
 }
-.cart-header .cell-info{
-    width: 45%;
-    padding-left: 106px;
+.cart-header th:nth-child(3){
+    width: 100px;
 }
-.cart-table .cell-price{
-    width:10%;
+.cart-header th:nth-child(4){
+    width: 200px;
+}
+.cart-header th:nth-child(5){
+    width: 100px;
+}
+.cart-header th:nth-child(6){
+    width: 110px;
+}
+.cart-info{
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid #ebebeb;
+}
+.cart-info td{
+    line-height: 40px;
+    height: 82px;
     text-align: center;
 }
-.cart-table .cell-count{
-    width:15%;
-    text-align: center;
+.cart-info td:nth-child(1){
+    width: 50px;
+    text-align: left;
 }
-.cart-table .cell-count .count-input{
-    width: 60px;
-    height: 28px;
-    line-height: 28px;
-    border: 1px solid #ddd;
-    text-align: center;
-    vertical-align: middle;
-    outline: none;
-    color: #333;
+.cart-info td:nth-child(2){
+    width: 100px;
 }
-.cart-table .cell-count .count-btn{
-    display: inline-block;
-    width: 20px;
-    height: 28px;
-    line-height: 28px;
-    border: 1px solid #ddd;
-    vertical-align: middle;
-    cursor: pointer;
-    background: #fff;
-    -moz-user-select : none;
-    -webkit-user-select : none;
-    -ms-user-select : none;
-    user-select : none;
+.cart-info td:nth-child(3){
+    width: 420px;
+    text-align: left;
 }
-.cart-table .cell-total{
-    width:13%;
-    text-align: center;
-    font-weight: bold;
+.cart-info td:nth-child(4){
+    width: 100px;
 }
-.cart-table .cell-opera{
-    width:10%;
-    text-align: center;
+.cart-info td:nth-child(5){
+    width: 200px;
+    position: relative;
+}
+.cart-info td:nth-child(6){
+    width: 100px;
+}
+.cart-info td:nth-child(7){
+    width: 110px;
 }
 
+.cart-img-con{
+    position: relative;
+    width: 82px;
+    height: 82px;
+    line-height: 82px;
+}
+.cart-img{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.cart-info-count{
+    height: 28px;
+    line-height: 28px;
+    width: 60px;
+    text-align: center;
+    outline: none;
+    border: 1px solid #ddd;
+}
+.count-change-btn{
+    height: 28px;
+    line-height: 28px;
+    width: 20px;
+    border: 1px solid #ddd;
+}
+.totalPrices{
+    color: #000;
+    font-weight: 700;
+}
+.cart-minus{
+    left: 41px;
+    top: 27px;
+}
+.cart-plus{
+    left: 131px;
+    top: 27px;
+}
+.deleteCartProduct,.delete-selected{
+    cursor: pointer;
+}
 /* footer */
 .cart-footer{
-    position: relative;
-    line-height: 50px;
+    width: 100%;
     background: #eee;
-    overflow: hidden;
+    border: 1px solid #ebebeb;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
-.cart-footer .select-con{
-    float: left;
+.cart-footer td:nth-child(2){
     padding-left: 20px;
 }
-.cart-footer .delete-con{
-    float: left;
-    margin-left: 20px;
+.cart-footer td:nth-child(3){
+    width: 929px;
+    text-align: right;
 }
-.cart-footer .submit-con{
-    float: right;
-}
-.cart-footer .submit-con .submit-total{
+.cart-footer-price{
     font-size: 18px;
     color: #c60023;
-    font-weight: bold;
+    font-weight: 700;
     margin-right: 30px;
-    vertical-align: middle;
 }
-.cart-footer .submit-con .btn-submit{
-    width: 80px;
-    text-align: center;
+.cart-footer-item span{
     height: 50px;
     line-height: 50px;
-}
-/* 错误信息 */
-.err-tip{
-    height: 60px;
-    line-height: 60px;
-    color: #f60;
-    font-size: 16px;
-    font-weight: bold;
     text-align: center;
-    background: #eee;
+    vertical-align: middle;
 }

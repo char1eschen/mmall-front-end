@@ -1,51 +1,49 @@
-'use strict';
 require('./index.css');
 require('page/common/nav/index.js');
 require('page/common/header/index.js');
-var _mm           = require('util/mm.js');
-var _payment      = require('service/payment-service.js');
-var templateIndex = require('./index.string');
-
+var _mm 			= require ('util/mm.js');
+var _payment           = require('service/payment-service.js');
+var templateIndex   = require('./index.string');
+// page 逻辑部分
 var page = {
-    data      : {
-        orderNumber: _mm.getUrlParam('orderNumber')
-    },
-    init      : function () {
-        this.onLoad();
-    },
-    onLoad    : function () {
-        this.loadPaymentInfo();
-    },
-    // 加载订单 数据
-    loadPaymentInfo: function () {
-        var _this           = this,
-            paymentHtml = '',
-            $pageWrap        = $('.page-wrap');
-        $pageWrap.html('<div class="loading"></div>');
-        _payment.getPaymentInfo(this.data.orderNumber, function (res) {
-            //渲染html
-            paymentHtml = _mm.renderHtml(templateIndex, res);
-            $pageWrap.html(paymentHtml);
-            //监听订单状态
-            _this.listenOrderStatus();
-        }, function (errMsg) {
-            $pageWrap.html('<p class="err-tip">' + errMsg + '</p>');
-        });
-    },
-    listenOrderStatus:function () {
-        var _this = this;
-        this.paymentTimer = window.setInterval(function () {
-            _payment.getPaymentStatus(_this.orderNumber,function (res) {
-                if(res == true){
-                    window.location.href
-                        = './result.html?type=payment&orderNumber=' + _this.data.orderNumber;
-                }
-            },function (errMsg) {
-
-            })
-        })
-    }
+	//初始化数据
+	data : {
+		orderNo : _mm.getUrlParam('orderNo') || ''
+	},
+	// 初始化页面
+	init : function(){
+		this.onload();
+	},
+	// 加载页面
+	onload : function(){
+		var paymentHtml = '',
+			_this = this;
+		_payment.getPrCode({
+			orderNo : this.data.orderNo
+		},function(res){
+			paymentHtml = _mm.renderHtml(templateIndex, res);
+			$('.pay-wrap').html(paymentHtml);
+			_this.listenPayStatus();
+		},function(errMsg){
+			_mm.errorTips(errMsg);
+		});
+	},
+	// 监听支付结果
+	listenPayStatus : function(){
+		var _this = this;
+		var payTimer = window.setInterval(function(){
+			_payment.queryPayStatus({
+			orderNo : _this.data.orderNo
+		},function(res){
+			if(res){
+			window.location.href = '.result.html?type=payment&orderNo=' + _this.data.orderNo;
+			}
+		},function(errMsg){
+			_mm.errorTips(errMsg);
+		});
+		},5e3);
+	}
 };
-$(function () {
-    page.init();
+$(function(){
+	page.init();
 });

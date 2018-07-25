@@ -1,130 +1,138 @@
-'use strict';
-
 require('./index.css');
 require('page/common/header/index.js');
-require('page/common/nav/index.js');
-var _mm             = require('util/mm.js');
-var _order          = require('service/order-service.js');
-var _address        = require('service/address-service.js');
-var templateAddress = require('./address-list.string');
-var templateProduct = require('./product-list.string');
-var addressModal    = require('./address-modal.js');
-
+var nav = require('page/common/nav/index.js');
+var _mm = require('util/mm.js');
+var templateAddress = require('./address.string');
+var templateOrderProduct = require('./orderProduct.string');
+var addressModel = require('./address-model.js');
+var _address = require('service/address-service.js');
+var _order = require('service/order-service.js');
 var page = {
-    data           : {
-        selectedAddressId: null
+    data: {
+
     },
-    init           : function () {
+    //页面初始化
+    init: function() {
         this.onLoad();
         this.bindEvent();
     },
-    onLoad         : function () {
-        this.loadAddressList();
-        this.loadProductList();
+    //加载页面
+    onLoad: function() {
+        this.loadAddress();
+        this.loadOrderProduct();
     },
-    bindEvent      : function () {
+    // 绑定事件
+    bindEvent: function() {
         var _this = this;
-        // 地址的选择
-        $(document).on('click', '.address-item', function () {
-            $(this).addClass('active')
-                .siblings('.address-item').removeClass('active');
-            _this.data.selectedAddressId = $(this).data('id');
-        });
-        // 订单提交
-        $(document).on('click', '.order-submit', function () {
-            var shippingId = _this.data.selectedAddressId;
-            if (shippingId) {
-                _order.createOrder({
-                    shippingId: shippingId
-                }, function (res) {
-                    window.location.href = './payment.html?orderNumber=' + res.orderNo;
-                }, function (errMsg) {
-                    _mm.errorTips(errMsg)
-                });
-            } else {
-                _mm.errorTips('请选择地址后提交');
+        // 选择收货地址并缓存
+        $(document).on('click', '.address-item', function() {
+            var $this = $(this);
+            // 再次点击同一个时取消选中
+            if (_this.data.selectedShippingId && $this.hasClass('active')) {
+                _this.data.selectedShippingId = null;
+                $this.removeClass('active');
+            }
+            // 更新购物车商品数量
+            else {
+                _this.data.selectedShippingId = $this.data('shippingid');
+                $this.addClass('active').siblings().removeClass('active');
             }
         });
-        // 添加地址
-        $(document).on('click', '.address-add', function () {
-            addressModal.show({
-                isUpdate : false,
-                onSuccess: function () {
-                    _this.loadAddressList();
+        // 提交订单按钮
+        $(document).on('click', '.order-submit', function() {
+            var $this = $(this),
+                shippingId = _this.data.selectedShippingId;
+            if (!shippingId) {
+                _mm.errorTips('您尚未选择收货地址，请选择！');
+            } else {
+                _order.creatOrder({
+                    shippingId: shippingId
+                }, function(res) {
+                    window.location.href = './payment.html?orderNo=' + res.orderNo;
+                }, function(errMsg) {
+                    _mm.errorTips(errMsg);
+                });
+            }
+        });
+        //加载地址模块，添加新地址
+        $(document).on('click', '.address-new', function() {
+            addressModel.show({
+                isUpdate: false,
+                onSuccess: function() {
+                    _this.loadAddress();
                 }
             });
         });
-        // 编辑地址
-        $(document).on('click', '.address-update', function (e) {
+        //加载地址模块,更新地址
+        $(document).on('click', '.edit', function(e) {
+            var selectedShippingId = $(this).parents('.address-item').data('shippingid');
+            //避免点击编辑也触发选择收货地址
             e.stopPropagation();
-            var shippingId = $(this).parents('.address-item').data('id');
-            _address.getAddress(shippingId, function (res) {
-                addressModal.show({
-                    isUpdate : true,
-                    data     : res,
-                    onSuccess: function () {
-                        _this.loadAddressList();
+            _address.selectAddress(selectedShippingId, function(res) {
+                addressModel.show({
+                    data: res,
+                    isUpdate: true,
+                    onSuccess: function() {
+                        _this.loadAddress();
                     }
-                })
-            }, function (errMsg) {
+                });
+            }, function(errMsg) {
                 _mm.errorTips(errMsg);
             });
         });
-        // 地址的删除
-        $(document).on('click', '.address-delete', function (e) {
+        //删除地址模块
+        $(document).on('click', '.delect', function(e) {
+            var selectedShippingId = $(this).parents('.address-item').data('shippingid');
+            //避免点击删除也触发选择收货地址
             e.stopPropagation();
-            var id = $(this).parents('.address-item').data('id');
-            if (window.confirm('确认要删除该地址？')) {
-                _address.deleteAddress(id, function (res) {
-                    _this.loadAddressList();
-                }, function (errMsg) {
+            if (window.confirm('您确定要删除该地址吗？')) {
+                _address.delectAddress({
+                    shippingId: selectedShippingId
+                }, function(res) {
+                    _this.loadAddress();
+                }, function(errMsg) {
                     _mm.errorTips(errMsg);
                 });
             }
         });
     },
-    // 加载地址列表信息
-    loadAddressList: function () {
+    //加载地址列表
+    loadAddress: function() {
         var _this = this;
-        $('.address-con').html('<div class="loading"></div>');
-        //获取地址列表
-        _address.getAddressList(function (res) {
-            _this.addressFilter(res);
-            var addressListHtml = _mm.renderHtml(templateAddress, res);
-            $('.address-con').html(addressListHtml);
-        }, function (errMsg) {
-            $('.address-con').html('<p class="err-tip">地址加载失败，请刷新</p>');
+        $addressList = $('.address-list');
+        _address.getAddressList({
+            pageNum: 1,
+            pageSize: 50
+        }, function(res) {
+            _this.filter(res);
+            var AddressHtml = _mm.renderHtml(templateAddress, res);
+            $addressList.html(AddressHtml);
+        }, function(errMsg) {
+            $addressList.html('<p class="err-tip">好像哪里出问题了，请重新加载！</p>');
         });
     },
-    // 处理地址列表中选中状态
-    addressFilter  : function (data) {
-        if (this.data.selectedAddressId) {
-            var selectedAddressIdFlag = false;
-            for (var i = 0, length = data.list.length; i < length; i++) {
-                if (data.list[i].id === this.data.selectedAddressId) {
+    //过滤参数，使删除地址后之前选中地址状态保留
+    filter: function(data) {
+        var _this = this;
+        if (this.data.selectedShippingId) {
+            for (var i = 0, _length = data.list.length; i < _length; i++) {
+                if (data.list[i].id === this.data.selectedShippingId) {
                     data.list[i].isActive = true;
-                    selectedAddressIdFlag = true;
                 }
-            }
-            // 如果以前选中的地址不在列表里，将其删除
-            if (!selectedAddressIdFlag) {
-                this.data.selectedAddressId = null;
             }
         }
     },
-    // 加载商品清单
-    loadProductList: function () {
-        var _this = this;
-        $('.product-con').html('<div class="loading"></div>');
-        //获取地址列表
-        _order.getProductList(function (res) {
-            var productListHtml = _mm.renderHtml(templateProduct, res);
-            $('.product-con').html(productListHtml);
-        }, function (errMsg) {
-            $('.product-con').html('<p class="err-tip">商品清单加载失败，请刷新</p>');
+    //加载订单商品列表
+    loadOrderProduct: function() {
+        $OrderProduct = $('.order-product');
+        _order.getOrderProduct(function(res) {
+            var OrderProductHtml = _mm.renderHtml(templateOrderProduct, res);
+            $OrderProduct.html(OrderProductHtml);
+        }, function(errMsg) {
+            $OrderProduct.html('<p class="err-tip">好像哪里出问题了，请重新加载！</p>');
         });
     }
 };
-$(function () {
+$(function() {
     page.init();
 });
