@@ -1,10 +1,10 @@
 # MMall website
 
-![](https://github.com/char1eschen/mmall-front-end/blob/master/src/image/project-showcase-mmall.png)
+![](https://github.com/char1eschen/mmall-front-end/blob/master/screenshots/project-showcase-mmall.png)
 
 ## Description
 - MMall is an E-Commerce website mainly created by HTML, Sass and jQuery.
-- You can visit the [Demo website](http://60.205.176.176/index.html). 
+- You can visit the [Demo website](http://mmall.rubychen.me). 
 
 ## How to install
 clone to local directory 
