@@ -1,0 +1,37 @@
+{
+  "name": "mmall-fe",
+  "version": "1.5.0",
+  "description": "mmall front-end code",
+  "main": "index.js",
+  "author": "Charles Chen",
+  "license": "MIT",
+  "scripts": {
+    "dev": "WEBPACK_ENV=dev webpack-dev-server --inline --port 8088",
+    "dev_win": "set WEBPACK_ENV=dev && webpack-dev-server --inline --port 8088",
+    "dist": "WEBPACK_ENV=online webpack -p",
+    "dist_win": "set WEBPACK_ENV=online && webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/char1eschen/mmall-front-end.git"
+  },
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "hogan.js": "^3.0.2"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.9",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^1.1.6",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^2.30.1",
+    "style-loader": "^0.20.1",
+    "url-loader": "^0.6.2",
+    "webpack": "^1.15.0",
+    "webpack-dev-server": "^1.16.5"
+  },
+  "bugs": {
+    "url": "https://github.com/char1eschen/mmall-front-end"
+  },
+  "homepage": "https://github.com/char1eschen/mmall-front-end#readme"
+}

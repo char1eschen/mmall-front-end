@@ -1,0 +1,16 @@
+/* 导航主体 */
+.nav-side {
+    width: 100px;
+    min-height: 100px;
+    float: left;
+}
+.nav-side .nav-item {
+    line-height: 30px;
+}
+.nav-side .nav-item .link {
+    color: #888;
+}
+.nav-side .nav-item.active .link {
+    color: #c60023;
+    font-weight: bold;
+}
