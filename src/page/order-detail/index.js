@@ -2,59 +2,59 @@
 require('./index.css');
 require('page/common/nav/index.js');
 require('page/common/header/index.js');
-var navSide = require('page/common/nav-side/index.js');
-var _util = require('util/util.js');
-var _order = require('service/order-service.js');
-var templateIndex = require('./index.string');
+var navSide         = require('page/common/nav-side/index.js');
+var _mm             = require('util/mm.js');
+var _order          = require('service/order-service.js');
+var templateIndex   = require('./index.string');
 
 var page = {
-    data: {
-        orderNumber: _util.getUrlParam('orderNumber')
+    data           : {
+        orderNumber: _mm.getUrlParam('orderNumber')
     },
-    init: function() {
+    init           : function () {
         this.onLoad();
         this.bindEvent();
     },
-    onLoad: function() {
-        // 初始化左侧菜单
+    onLoad         : function () {
         navSide.init({
-            name: 'order-list'
+            name:'order-list'
         });
-        // 加载订单列表
-        this.loadOrderDetail();
+        this.loadPaymentInfo();
     },
-    bindEvent: function() {
-        $(document).on('click', '.order-cancel', function() {
-            if (window.confirm('确定要取消订单？')) {
-                _order.cancelOrder(_this.data.orderNumber), function(res) {
-                    _util.successTip('订单取消成功');
-                    _this.loadOrderDetail();
-                }, function(errMsg) {
-                    _util.errorTip(errMsg);
-                };
+    bindEvent      : function () {
+        var _this = this;
+        $(document).on('click', '.order-cancel', function(){
+            if(window.confirm('确实要取消该订单？')){
+                _order.cancelOrder(_this.data.orderNumber, function(res){
+                    _mm.successTips('该订单取消成功');
+                    _this.loadPaymentInfo();
+                }, function(errMsg){
+                    _mm.errorTips(errMsg);
+                });
             }
         });
     },
-    loadOrderDetail: function() {
-        var _this = this,
+    // 加载订单 数据
+    loadPaymentInfo: function () {
+        var _this         = this,
             orderDetailHtml = '',
-            $content = $('.content');
+            $content      = $('.content');
         $content.html('<div class="loading"></div>');
-        _order.getOrderDetail(this.data.orderNumber, function(res) {
+        _order.getOrderDetail(this.data.orderNumber, function (res) {
             _this.dataFilter(res);
-            // 渲染列表
-            orderDetailHtml = _util.renderHtml(templateIndex, res);
+            //渲染html
+            orderDetailHtml = _mm.renderHtml(templateIndex, res);
             $content.html(orderDetailHtml);
-        }, function(errMsg) {
-            $content.html('<p class="err-tip">加载订单详情失败，请刷新</p>');
+        }, function (errMsg) {
+            $content.html('<p class="err-tip">' + errMsg + '</p>');
         });
     },
-    dataFilter: function(data) {
-        data.needPay = data.status == 10;
-        data.isCancelable = data.status == 10;
+    // 数据的适配
+    dataFilter : function(data){
+        data.needPay        = data.status == 10;
+        data.isCancelable   = data.status == 10;
     }
 };
-
-$(function() {
+$(function () {
     page.init();
 });

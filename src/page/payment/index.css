@@ -1,26 +1,26 @@
-.page-wrap {
+.page-wrap{
+    background: #ffffff;
     padding: 10px 0 25px 0;
-    background: #fff;
 }
-.payment-tips {
+.payment-tips{
     height: 40px;
-    color: #666;
+    line-height: 40px;
     font-size: 18px;
     font-weight: bold;
-    line-height: 40px;
+    color: #666666;
     text-align: center;
 }
-.payment-tips.enhance {
+.payment-tips.enhance{
     color: #c60023;
 }
-.img-con {
+.img-con{
     margin: 0 auto;
-    width: 300px;
+    width:300px;
     height: 300px;
-    background: #fff;
-    border: 1px solid #fff;
+    background: #ffffff;
+    border: 1px solid #ffffff;
 }
-.img-con .qr-code {
+.img-con .qr-code{
     width: 100%;
     height: 100%;
 }

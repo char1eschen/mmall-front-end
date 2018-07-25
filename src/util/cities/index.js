@@ -1,7 +1,7 @@
 'use strict';
 
 var _cities = {
-    cityInfo: {
+    cityInfo : {
         '北京':['北京'],
         '上海':['上海'],
         '天津':['天津'],
@@ -37,16 +37,16 @@ var _cities = {
         '澳门':['澳门'],
         '台湾':['台北','台南','其他']
     },
-    // 获取所有省份
-    getProvinces: function() {
+    // 获取所有的省份
+    getProvinces : function(){
         var provinces = [];
-        for (var item in this.cityInfo) {
+        for(var item in this.cityInfo){
             provinces.push(item);
         }
         return provinces;
     },
     // 获取某省份的所有城市
-    getCities: function(provinceName) {
+    getCities : function(provinceName){
         return this.cityInfo[provinceName] || [];
     }
 };

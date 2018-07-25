@@ -13,11 +13,11 @@
                     {{shippingVo.receiverProvince}}
                     {{shippingVo.receiverCity}}
                     {{shippingVo.receiverAddress}}
-                    {{shippingVo.receiverPhone}}
+                    {{shippingVo.receiverMobile}}
                 </span>
             </div>
             <div class="text-line">
-                <span class="text">订单状态：{{statusDesc}}</span>
+                <span class="text">订单状态： {{statusDesc}}</span>
             </div>
             <div class="text-line">
                 <span class="text">支付方式：{{paymentTypeDesc}}</span>
@@ -47,14 +47,12 @@
             {{#orderItemVoList}}
             <tr>
                 <td class="cell cell-img">
-                    <a href="./detail.html?productId={{productId}}" target="_blank" class="link">
-                        <img src="{{imageHost}}{{productImage}}" alt="{{productName}}" class="p-img" />
+                    <a href="./detail.html?productId={{productId}}" target="_blank">
+                        <img class="p-img" src="{{imageHost}}{{productImage}}" alt="{{productName}}" />
                     </a>
                 </td>
                 <td class="cell cell-info">
-                    <a href="./detail.html?productId={{productId}}" target="_blank" class="link">
-                        {{productName}}
-                    </a>
+                    <a class="link" href="./detail.html?productId={{productId}}" target="_blank">{{productName}}</a>
                 </td>
                 <td class="cell cell-price">￥{{currentUnitPrice}}</td>
                 <td class="cell cell-count">{{quantity}}</td>

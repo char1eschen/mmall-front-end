@@ -1,28 +1,47 @@
-.nav {
+.nav{
+    background: #eee;
     height: 30px;
     line-height: 30px;
-    background: #e3e4e5;
-    border-bottom: 1px solid #ddd;
 }
 /* 用户部分 */
-.nav .user-info {
+.nav .user{
     float: left;
 }
-.nav .user.login {
-    display: none;
+.nav .user.login{
+   display: none;
 }
-.nav .user .link {
-    padding: 0 5px;
+.nav .user .link{
+    margin-right: 5px;
 }
-/* 链接导航部分 */
-.nav .nav-list {
+
+/* 导航链接部分 */
+.nav .nav-list{
     float: right;
-    font-size: 0;
 }
-.nav .nav-list .nav-item {
+.nav .nav-list .nav-item{
     display: inline-block;
-    font-size: 12px;
+    margin-left: 5px;
 }
-.nav .nav-list .nav-item .link{
-    padding: 0 7px;
+
+/* notice */
+.notice-con{
+    background: #c60023;
+    padding: 5px 0;
+    line-height: 30px;
+}
+.notice-con .notice {
+    font-size: 14px;
+    color: #eee;
+    font-weight: 700;
+    text-align: center;
+}
+.notice-con .notice .mail-link {
+    color: #eee;
+    text-decoration: none;
+}
+.notice-con .notice .notice-link {
+    color: #fff;
+    padding: 5px;
+    text-decoration: none;
+    background: #fb5505;
 }

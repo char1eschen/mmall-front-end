@@ -1,21 +1,16 @@
-.footer {
-    margin-top: 20px;
+.footer{
     padding-bottom: 10px;
-    border-top: 1px solid #e1e1e1;
 }
-.footer .links {
+.footer .link{
     text-align: center;
+    color: #666;
     line-height: 30px;
 }
-.footer .links .link {
-    padding: 0 5px;
-    color: #666;
+.footer .link .link{
+    padding: 0 10px;
 }
-.footer .links .link:hover {
-    color: #e80012;
-}
-.footer .copyright {
-    color: #999;
+.footer .copyright{
     text-align: center;
+    color: #666;
     line-height: 30px;
 }

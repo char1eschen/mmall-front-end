@@ -1,12 +1,12 @@
 <div class="intro-wrap">
     <div class="p-img-con">
         <div class="main-img-con">
-            <img class="main-img" src="{{imageHost}}{{mainImage}}" alt="{{name}}">
+            <img class="main-img" src="{{imageHost}}{{mainImage}}" alt="{{name}}"/>
         </div>
         <ul class="p-img-list">
             {{#subImages}}
             <li class="p-img-item">
-                <img class="p-img" src="{{imageHost}}{{.}}" alt="{{name}}">
+                <img class="p-img" src="{{imageHost}}{{.}}" alt="{{name}}" />
             </li>
             {{/subImages}}
         </ul>
@@ -15,16 +15,16 @@
         <h1 class="p-name">{{name}}</h1>
         <p class="p-subtitle">{{subtitle}}</p>
         <div class="p-info-item p-price-con">
-            <span class="label">价格：</span>
+            <span class="label">价格:</span>
             <span class="info">￥{{price}}</span>
         </div>
         <div class="p-info-item">
-            <span class="label">库存：</span>
-            <span class="info">￥{{stock}}</span>
+            <span class="label">库存:</span>
+            <span class="info">{{stock}}</span>
         </div>
         <div class="p-info-item p-count-con">
-            <span class="label">数量：</span>
-            <input class="p-count" value="1" readonly="" />
+            <span class="label">数量:</span>
+            <input class="p-count" value="1" readonly=""/>
             <span class="p-count-btn plus">+</span>
             <span class="p-count-btn minus">-</span>
         </div>
@@ -40,6 +40,7 @@
         </ul>
     </div>
     <div class="detail-con">
+        <!-- 三层括号表示对渲染方式的加载 -->
         {{{detail}}}
     </div>
 </div>
