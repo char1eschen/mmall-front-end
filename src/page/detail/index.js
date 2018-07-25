@@ -1,54 +1,53 @@
-'use strict';
-
 require('./index.css');
 require('page/common/nav/index.js');
 require('page/common/header/index.js');
 var _mm             = require('util/mm.js');
 var _product        = require('service/product-service.js');
+var templateDetail   = require('./index.string');
 var _cart           = require('service/cart-service.js');
-var templateIndex   = require('./index.string');
-
 var page = {
-    data           : {
-        productId : _mm.getUrlParam('productId') || ''
+    //数据缓存
+    data : {
+            productId    : _mm.getUrlParam('productId')    || '',
+            detailInfo   : ''           
     },
-    init           : function(){
+    //初始化
+    init : function(){
         this.onLoad();
         this.bindEvent();
     },
-    onLoad         : function(){
-        // 如果没有传productId, 自动跳回首页
-        if(!this.data.productId){
-            _mm.goHome();
-        }
-        this.loadPaymentInfo();
+    //加载页面
+    onLoad : function(){
+        this.loadDetail();
     },
-    bindEvent      : function(){
+    // 绑定事件
+    bindEvent : function(e){
         var _this = this;
-        // 图片预览
-        $(document).on('mouseenter', '.p-img-item', function(){
-            var imageUrl   = $(this).find('.p-img').attr('src');
-            $('.main-img').attr('src', imageUrl);
+            /*图片的悬浮事件*/
+        $(document).on('mouseenter','.p-img',function(event){
+            $('.p-img-main').attr('src', $(this).attr('src'));
         });
-        // count的操作
-        $(document).on('click', '.p-count-btn', function(){
+        // 商品数量设置 
+        $(document).on('click', '.p-count', function(){
             var type        = $(this).hasClass('plus') ? 'plus' : 'minus',
-                $pCount     = $('.p-count'),
+                $pCount     = $('.p-info-count'),
                 currCount   = parseInt($pCount.val()),
                 minCount    = 1,
                 maxCount    = _this.data.detailInfo.stock || 1;
+            //点击+
             if(type === 'plus'){
                 $pCount.val(currCount < maxCount ? currCount + 1 : maxCount);
             }
+            //点击-
             else if(type === 'minus'){
                 $pCount.val(currCount > minCount ? currCount - 1 : minCount);
             }
         });
         // 加入购物车
-        $(document).on('click', '.cart-add', function(){
+        $(document).on('click', '.btn', function(){
             _cart.addToCart({
                 productId   : _this.data.productId,
-                count       : $('.p-count').val()
+                count       : $('.p-info-count').val()
             }, function(res){
                 window.location.href = './result.html?type=cart-add';
             }, function(errMsg){
@@ -56,23 +55,28 @@ var page = {
             });
         });
     },
-    // 加载商品详情的数据
-    loadPaymentInfo: function(){
-        var _this       = this,
-            html        = '',
-            $pageWrap   = $('.page-wrap');
+    // 加载Detail数据
+    loadDetail : function(){
+        var _this         = this,
+            listHtml      = '',
+            $detailwrap   = $('.detail-wrap');
+        // 判断productid是否存在，不存在则跳回首页
+        if(!this.data.productId){
+            _mm.goHome();
+        }
         // loading
-        $pageWrap.html('<div class="loading"></div>');
-        // 请求detail信息
-        _product.getProductDetail(this.data.productId, function(res){
+        $detailwrap.html('<div class="loading"></div>');
+        // 请求接口
+        _product.getProductDetail(this.data, function(res){
+            // 将返回的subImages从，分解
+            // 如果传递数据为res.subImages，其为原始类型，由于按值传递，复制一份副本，执行后res不变；
             _this.filter(res);
             // 缓存住detail的数据
             _this.data.detailInfo = res;
-            // render
-            html = _mm.renderHtml(templateIndex, res);
-            $pageWrap.html(html);
+            detailHtml = _mm.renderHtml(templateDetail, res);
+            $detailwrap.html(detailHtml);
         }, function(errMsg){
-            $pageWrap.html('<p class="err-tip">此商品太淘气，找不到了</p>');
+            $detailwrap.html('<p class="err-tip">不好意思，该商品淘气了，我找不着/(ㄒoㄒ)/~~</p>');
         });
     },
     // 数据匹配
@@ -83,3 +87,7 @@ var page = {
 $(function(){
     page.init();
 });
+
+
+
+

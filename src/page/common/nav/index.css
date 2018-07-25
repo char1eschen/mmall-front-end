@@ -1,47 +1,58 @@
-.nav{
-    background: #eee;
-    height: 30px;
-    line-height: 30px;
-}
-/* 用户部分 */
-.nav .user{
-    float: left;
-}
-.nav .user.login{
-   display: none;
-}
-.nav .user .link{
-    margin-right: 5px;
-}
-
-/* 导航链接部分 */
-.nav .nav-list{
-    float: right;
-}
-.nav .nav-list .nav-item{
-    display: inline-block;
-    margin-left: 5px;
-}
-
-/* notice */
-.notice-con{
+.notice-con {
     background: #c60023;
     padding: 5px 0;
-    line-height: 30px;
+    line-height: 30px
 }
 .notice-con .notice {
     font-size: 14px;
-    color: #eee;
-    font-weight: 700;
-    text-align: center;
-}
-.notice-con .notice .mail-link {
-    color: #eee;
-    text-decoration: none;
-}
-.notice-con .notice .notice-link {
     color: #fff;
-    padding: 5px;
-    text-decoration: none;
-    background: #fb5505;
+    font-weight: 700;
+    text-align: center
+}
+.notice-con .notice.add{
+    color: #b5ff04;
+}
+.notice-con .notice .notice-link{
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    color: #fff;
+    background: #9103a2;
+    margin-right: 10px;
+    width: 130px;
+}
+.star{
+    font-size: 20px;
+    color: #9103a2;
+    margin-left: 20px;
+    text-decoration: underline;
+}
+.star:hover{
+    color: #2303a2;
+}
+.notice-con .notice .notice-link:hover {
+    background: #2303a2;
+}
+.nav{
+	height: 30px;
+	line-height: 30px;
+	background: #eee;
+}
+/*用户部分*/
+.nav .user{
+	float: left;
+}
+.nav .user.login{
+	display: none;
+}
+.nav .user .link{
+	margin-left: 5px;
+}
+/*导航链接部分*/
+.nav .nav-list{
+	float: right;
+}
+.nav .nav-list .nav-item{
+	display: inline-block;
+	margin-left: 5px;
 }

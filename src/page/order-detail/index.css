@@ -1,70 +1,81 @@
-/* 订单信息 */
-.order-info .text-line{
-    height: 30px;
-    line-height: 30px;
+.panel{
+	margin-bottom: 10px;
 }
-.order-info .text-line .text{
-    margin-right: 30px;
-}
-.order-info .btn{
-    width: 80px;
-    padding: 0;
+/*订单详情*/
+.form-line{
     height: 30px;
     line-height: 30px;
     font-size: 12px;
-    margin-right: 10px;
-    text-align: center;
 }
-
-/* 商品清单 */
-.product-table{
-    width: 100%;
-    border-collapse: collapse;
-}
-.product-table .cell-th{
-    background: #eee;
-}
-.product-table .cell{
-    border-bottom: 1px dashed #eee;
-    background: #fafafa;
-}
-.product-table .cell-img{
-    padding: 10px;
-    width: 10%;
-    text-align: center;
-}
-.product-table .cell-img .p-img{
+.form-line .label{
+    display: inline-block;
     width: 80px;
+    text-align: right;
+}
+.form-line .btn{
+	height: 25px;
+	line-height: 25px;
+	font-size: 12px;
+	padding: 0 10px;
+	margin-left: 20px;
+	text-align: center;
+	width: 65px;
+}
+/*订单列表头部*/
+.list-header{
+	width: 100%;
+	background: #eee;
+}
+.list-header th{
+	padding: 10px 0;
+	color: #666;
+}
+/*列表*/
+.cell-img{
+	width: 10%;
+	text-align: center;
+}
+.cell-name{
+	width: 45%;
+	text-align: left;
+}
+.cell-unitPrice{
+	width: 15%;
+	text-align: center;
+}
+.cell-quantity{
+	width: 15%;
+	text-align: center;
+}
+.cell-totolPrice{
+	width: 15%;
+	text-align: center;
+}
+.list-info{
+	margin: 20px 0;
+	color: #999;
+}
+/*产品区域*/
+.list-p td{
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+	color: #666;
+}
+.p-img{
+	width: 80px;
     height: 80px;
     border: 1px solid #ddd;
 }
-.product-table .cell-info{
-    width: 45%;
-    text-align: left;
+td.cell-name{
+	color: #999;
 }
-.product-table .cell-price{
-    width: 15%;
-    text-align: center;
+.cell-orderPrice{
+	padding: 20px 20px 0 0;
+	text-align: right;
+	font-size: 14px;
+	color: #000;
 }
-.product-table .cell-count{
-    width: 15%;
-    text-align: center;
-}
-.product-table .cell-total{
-    width: 15%;
-    text-align: center;
-}
-
-/* 总价钱 */
-.total{
-    text-align: right;
-    font-size: 14px;
-    height: 40px;
-    line-height: 40px;
-    margin-top: 10px;
-    margin-right: 20px;
-}
-.total .total-price{
-    font-weight: bold;
+.orderPrice {
+    font-weight: 700;
     color: #c60023;
 }

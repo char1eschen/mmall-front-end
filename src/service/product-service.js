@@ -1,27 +1,25 @@
-'use strict';
-
 var _mm = require('util/mm.js');
 
-var _product = {
-    // 获取商品列表
-    getProductList : function(listParam, resolve, reject){
+var product = {
+    // 加载商品列表
+    getProductList : function(listInfo, resolve, reject){
         _mm.request({
             url     : _mm.getServerUrl('/product/list.do'),
-            data    : listParam,
+            data    : listInfo,
             success : resolve,
             error   : reject
         });
     },
-    // 获取商品详细信息
-    getProductDetail : function(productId, resolve, reject){
+    // 加载商品详情的数据
+    getProductDetail: function(detailInfo, resolve, reject){
         _mm.request({
             url     : _mm.getServerUrl('/product/detail.do'),
-            data    : {
-                productId : productId
-            },
+            data    : detailInfo,
             success : resolve,
             error   : reject
         });
     }
+    
+    
 };
-module.exports = _product;
+module.exports = product;

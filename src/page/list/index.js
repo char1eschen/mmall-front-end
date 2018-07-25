@@ -1,4 +1,3 @@
-'use strict';
 require('./index.css');
 require('page/common/nav/index.js');
 require('page/common/header/index.js');
@@ -6,9 +5,9 @@ var _mm             = require('util/mm.js');
 var _product        = require('service/product-service.js');
 var Pagination      = require('util/pagination/index.js');
 var templateIndex   = require('./index.string');
-
 var page = {
-    data           : {
+    //初始化数据
+    data : {
         listParam : {
             keyword         : _mm.getUrlParam('keyword')    || '',
             categoryId      : _mm.getUrlParam('categoryId') || '',
@@ -17,14 +16,17 @@ var page = {
             pageSize        : _mm.getUrlParam('pageSize')   || 20
         }
     },
-    init           : function(){
+    // 初始化页面
+    init : function(){
         this.onLoad();
         this.bindEvent();
     },
-    onLoad         : function(){
-        this.loadPaymentInfo();
+    //加载页面
+    onLoad : function(){
+        this.loadList();
     },
-    bindEvent      : function(){
+    //绑定事件
+    bindEvent : function(){
         var _this = this;
         // 排序的点击事件
         $('.sort-item').click(function(){
@@ -58,11 +60,11 @@ var page = {
                 }
             }
             // 重新加载列表
-            _this.loadPaymentInfo();
+            _this.loadList();
         });
     },
     // 加载list数据
-    loadPaymentInfo: function(){
+    loadList : function(){
         var _this       = this,
             listHtml    = '',
             listParam   = this.data.listParam,
@@ -97,7 +99,7 @@ var page = {
             container : $('.pagination'),
             onSelectPage : function(pageNum){
                 _this.data.listParam.pageNum = pageNum;
-                _this.loadPaymentInfo();
+                _this.loadList();
             }
         }));
     }
@@ -105,3 +107,7 @@ var page = {
 $(function(){
     page.init();
 });
+
+
+
+
