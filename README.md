@@ -13,16 +13,16 @@ clone to local directory
 ```
 install
 ```
-> npm install
+> yarn
 ```
 
 start the project
 ```
 dev model:
-> npm run dev (windows OS please use: npm run dev_win)
+> yarn run dev (windows OS please use: yarn run dev_win)
 
 dist model:
-> npm run dist (windows OS please use: npm run dist_win)
+> yarn run dist (windows OS please use: yarn run dist_win)
 ```
 
 visit project
